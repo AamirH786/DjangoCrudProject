@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.db.models import Q
 
 def index(request):
-    students = Student.objects.all
+    students = Student.objects.all()
     query = ""
     if request.method == 'POST':
         if 'add' in request.POST:
@@ -15,6 +15,7 @@ def index(request):
                 name=name,
                 email=email,
                 address=address
+            )
 
             messages.success(request, "Record Added Successfully")
             
@@ -37,7 +38,7 @@ def index(request):
             id = request.POST.get('id')
             try:
                 student = Student.objects.get(id=id)
-                student.delete
+                student.delete()
                 messages.success(request, "Record Deleted Successfully")
             except Student.DoesNotExist:
                 messages.error(request, "Student does not exist.")
